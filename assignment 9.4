@@ -1,0 +1,26 @@
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+d=dict()
+
+
+for line in handle:
+    line=line.rstrip()
+    if not line.startswith('From:'):
+        continue
+    words=line.split()
+    
+    for word in words:
+        if word not in d:
+            d[word]=1
+        elif word in d and len(word)>5:
+            d[word]+=1            
+bigcount=None
+bigword=None
+for word,count in d.items():
+    if bigcount is None or count > bigcount:
+        bigword=word
+        bigcount=count
+print(bigword,bigcount)
+    
+    
